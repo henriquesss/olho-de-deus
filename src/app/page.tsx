@@ -24,7 +24,7 @@ export default function Home() {
             </h1>
             <p className="w-96 text-center text-white">
               Busque pessoas e animais desaparecidos nas enchentes do Rio Grande
-              do Sul logo abaixo    
+              do Sul logo abaixo
             </p>
           </div>
 
@@ -44,7 +44,7 @@ export default function Home() {
       <main className="flex flex-col justify-center items-center p-24">
         <div className="container mx-auto text-center">
           <section>
-            <Estimates limitParam={9} />
+            <Estimates />
           </section>
         </div>
       </main>

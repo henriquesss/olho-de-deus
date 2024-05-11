@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import {
   Modal,
   ModalContent,
@@ -14,47 +14,30 @@ interface ICreateEstimateModalProps {
   isOpen: boolean;
   onOpenChange: () => void;
 }
-type INewErrors = {
-  description?: string;
-  stack?: string;
-  devs?: string;
-  time?: string;
-};
+// type INewErrors = {
+//   description?: string;
+//   stack?: string;
+//   devs?: string;
+//   time?: string;
+// };
 
 export const CreateEstimateModal = ({
   isOpen,
   onOpenChange,
 }: ICreateEstimateModalProps) => {
-  const [description, setDescription] = useState<string>("");
-  const [stackString, setStackString] = useState<string>("");
-  const [time, setTime] = useState<string>("0");
-  const [devs, setDevs] = useState<string>("0");
-  const [errors, setErrors] = useState<INewErrors>({
-    description: "",
-    stack: "",
-    devs: "",
-    time: "",
-  });
-
   const handleCreate = async (onClose: () => void) => {
     try {
-      // Validate form fields
-      const newErrors: INewErrors = {};
-      if (!description) newErrors.description = "Describe the estimate";
-      if (!stackString) newErrors.stack = "Write the tech stack";
-      if (!devs) newErrors.devs = "Report how many devs are involved";
-      if (!time) newErrors.time = "Report how many days this estimate last";
+      // // If there are errors, set them in the state
+      // if (Object.keys(newErrors).length > 0) {
+      //   setErrors(newErrors);
+      //   return false;
+      // } else {
+      //   // Everything is ok
+      //   alert("chama o serviço de salvar");
 
-      // If there are errors, set them in the state
-      if (Object.keys(newErrors).length > 0) {
-        setErrors(newErrors);
-        return false;
-      } else {
-        // Everything is ok
-        alert("chama o serviço de salvar");
-
-        onClose();
-      }
+      //   onClose();
+      // }
+      onClose();
     } catch (error) {
       console.error(error);
     }
@@ -128,7 +111,6 @@ export const CreateEstimateModal = ({
                   <textarea
                     className="border-1 p-2 rounded"
                     placeholder="Observações"
-                    onChange={(event) => setDescription(event.target.value)}
                   />
                 </ModalBody>
                 <ModalFooter>
