@@ -1,18 +1,18 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { EstimativeCard } from "../EstimateCard";
+import { MissingCard } from "../MissingCard";
 // import { IEstimate } from "../../interfaces/Estimate";
 
 // interface EstimatesComponentParams {
 //   limitParam?: number;
 // }
 
-export const Estimates = () => {
+export const Missings = () => {
   useEffect(() => {
     const getEstimatives = async () => {
       try {
-        // Query aqui
+        // Fetch no GET aqui futuramente
       } catch (error) {
         console.error(error);
       }
@@ -26,7 +26,7 @@ export const Estimates = () => {
       <div className="flex flex-wrap justify-around">
         <>
           <div className="md:w-80 w-full mb-4" key={1}>
-            <EstimativeCard
+            <MissingCard
               fullName="Fulano de tal"
               contact="(51) 9 9704-1726"
               local="Abrigo xyz"
@@ -35,7 +35,7 @@ export const Estimates = () => {
           </div>
 
           <div className="md:w-80 w-full mb-4" key={1}>
-            <EstimativeCard
+            <MissingCard
               fullName="Fulano de tal"
               contact="(51) 9 9704-1726"
               local="Abrigo xyz"
@@ -44,7 +44,7 @@ export const Estimates = () => {
           </div>
 
           <div className="md:w-80 w-full mb-4" key={1}>
-            <EstimativeCard
+            <MissingCard
               fullName="Fulano de tal"
               contact="(51) 9 9704-1726"
               local="Abrigo xyz"

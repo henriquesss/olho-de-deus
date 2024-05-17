@@ -7,15 +7,15 @@ interface EstimateCardParams {
   observations: string;
 }
 
-export const EstimativeCard = ({
+export const MissingCard = ({
   fullName,
   contact,
   local,
   observations,
 }: EstimateCardParams) => {
   return (
-    <div className="w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 text-left">
-      <h5 className="mb-2 w-60 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+    <div className="w-full p-6 rounded-lg shadow-2xl bg-black text-left">
+      <h5 className="mb-2 w-60 text-xl font-bold tracking-tighttext-white">
         {fullName}
       </h5>
 

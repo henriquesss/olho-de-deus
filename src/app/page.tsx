@@ -1,6 +1,6 @@
 "use client";
 
-import { Estimates } from "../components/Estimates";
+import { Missings } from "../components/Missings";
 import { Header } from "@components/Header";
 import React from "react";
 import Image from "next/image";
@@ -8,7 +8,7 @@ import Image from "next/image";
 export default function Home() {
   return (
     <>
-      <div className="w-full h-96 bg-slate-900">
+      <div className="w-full h-96 bg-diamond-green">
         <Header />
         <section className="mb-16">
           <div className="flex flex-col items-center justify-center">
@@ -20,7 +20,7 @@ export default function Home() {
               className="rounded-2xl mb-4"
             />
             <h1 className="text-white text-2xl font-bold">
-              Olho de deus <span className="text-sm text-gray-600">1.0.0</span>
+              Olho de deus <span className="text-sm text-gray-300">2.0.0</span>
             </h1>
             <p className="w-96 text-center text-white">
               Busque pessoas e animais desaparecidos nas enchentes do Rio Grande
@@ -37,14 +37,19 @@ export default function Home() {
           </div>
 
           <div className="flex justify-center items-center mt-4 text-white">
-            <button>Pesquisar</button>
+            <button
+              onClick={() => alert("Atualizar componente missings")}
+              className="bg-orange-500 text-white p-1 rounded font-bold"
+            >
+              Pesquisar
+            </button>
           </div>
         </section>
       </div>
       <main className="flex flex-col justify-center items-center p-24">
         <div className="container mx-auto text-center">
           <section>
-            <Estimates />
+            <Missings />
           </section>
         </div>
       </main>

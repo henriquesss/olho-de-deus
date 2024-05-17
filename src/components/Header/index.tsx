@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { CreateEstimateModal } from "../CreateEstimateModal";
+import { CreateMissingModal } from "../CreateMissingModal";
 import { useDisclosure } from "@nextui-org/react";
 
 export const Header = () => {
@@ -11,7 +11,7 @@ export const Header = () => {
 
   return (
     <div className="container mx-auto py-5 text-sm">
-      <CreateEstimateModal isOpen={isOpen} onOpenChange={onOpenChange} />
+      <CreateMissingModal isOpen={isOpen} onOpenChange={onOpenChange} />
       <div className="flex justify-around items-center">
         <div className="text-white font-bold">
           <Link href="/">
