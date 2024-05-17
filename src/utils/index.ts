@@ -26,3 +26,16 @@ export const formatUnixDateString = (unixString: string): string => {
 
   return dateString;
 };
+
+export function formatPhoneNumber(
+  event: React.KeyboardEvent<HTMLInputElement>,
+) {
+  const newValue: string = (event.target as HTMLInputElement).value.replace(
+    /\D/g,
+    "",
+  );
+  const formattedValue: string = newValue
+    .replace(/^(\d\d)(\d)/g, "($1)$2")
+    .replace(/(\d{5})(\d)/, "$1-$2");
+  (event.target as HTMLInputElement).value = formattedValue;
+}

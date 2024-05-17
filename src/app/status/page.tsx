@@ -6,7 +6,7 @@ export default function StatusPage() {
     <>
       <Header />
       <article>
-        <div className="container mx-auto py-5">
+        <div className="container mx-auto py-5 h-[600px]">
           <h1 className="text-2xl">Status da plataforma</h1>
           <p>Em breve:</p>
           <p>Total de usuários</p>

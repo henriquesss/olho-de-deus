@@ -1,6 +1,6 @@
 {
   "name": "olhodedeus",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "author": "Lucas Henriques",
   "scripts": {
@@ -14,12 +14,15 @@
     "@nextui-org/react": "^2.2.9",
     "firebase": "^10.7.1",
     "framer-motion": "^10.16.15",
+    "mongoose": "^8.3.4",
     "next": "^14.2.3",
     "react": "^18",
     "react-dom": "^18",
     "react-firebase-hooks": "^5.1.1",
+    "react-toastify": "^10.0.5",
     "sharp": "^0.33.0",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/firebase": "^3.2.1",

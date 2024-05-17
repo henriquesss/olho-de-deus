@@ -7,38 +7,29 @@ export default function MotivationPage() {
     <>
       <Header />
       <article>
-        <div className="container mx-auto py-5">
+        <div className="container mx-auto py-5 h-[600px]">
           <p className="text-2xl mb-2 font-bold">Motivação</p>
 
           <p className="mb-4">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos
-            repellendus eligendi, dignissimos ad totam error dolor rerum
-            accusamus porro quos itaque, velit nemo voluptatem debitis
-            perspiciatis illo, nisi laboriosam voluptatibus!
+            Visando ajudar o povo gaúcho em relação as enchentes que estão
+            ocorrendo atualmente no estado, a plataforma/ferramenta OLHO DE DEUS
+            foi criada.
           </p>
-
           <p className="mb-4">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos
-            repellendus eligendi, dignissimos ad totam error dolor rerum
-            accusamus porro quos itaque, velit nemo voluptatem debitis
-            perspiciatis illo, nisi laboriosam voluptatibus!
+            Guiados por uma tecnologia social alinhada a propósito com o intuito
+            de restabelecer o bem-estar do povo gaúcho, queremos impactar o
+            estado de maneira positiva através da conexão entre pessoas e
+            tecnologia.
           </p>
-
           <p className="mb-4">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos
-            repellendus eligendi, dignissimos ad totam error dolor rerum
-            accusamus porro quos itaque, velit nemo voluptatem debitis
-            perspiciatis illo, nisi laboriosam voluptatibus!
+            Acreditamos no poder da união entre cérebros, corações e máquinas
+            para um novo RS surgir mais forte, aguerrido e unido.
           </p>
-
           <p className="mb-4">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos
-            repellendus eligendi, dignissimos ad totam error dolor rerum
-            accusamus porro quos itaque, velit nemo voluptatem debitis
-            perspiciatis illo, nisi laboriosam voluptatibus!
+            Ajude o OLHO DE DEUS a estar presente em todos os cantos do estado
+            para cuidar do nosso povo gaúcho e dos nossos animais.
           </p>
-
-          <p>Vamos ajudar o RS agora</p>
+          <p>Juntos somos mais FORTES 👁️</p>
         </div>
       </article>
     </>
