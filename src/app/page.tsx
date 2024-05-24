@@ -1,11 +1,31 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Missings } from "../components/Missings";
 import { Header } from "@components/Header";
 import React from "react";
 import Image from "next/image";
+import { getMissings } from "@ui/repository/missing";
+import { IMissing } from "../types/missing";
 
 export default function Home() {
+  const [currentMissingList, setCurrentMissingList] = useState<IMissing[]>();
+  // const [totalPages, setTotalPages] = useState<number>(0);
+  // const [currentPage, setCurrentPage] = useState<number>(1);
+  // const [moreInfoModalOpen, setMoreInfoModalOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    getMissings(1, 10)
+      .then((response) => {
+        setCurrentMissingList(response.missings);
+        // setTotalPages(response.pages);
+      })
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.log(error);
+      });
+  }, []);
+
   return (
     <>
       <div className="w-full h-96 bg-diamond-green">
@@ -13,7 +33,7 @@ export default function Home() {
         <section className="mb-16">
           <div className="flex flex-col items-center justify-center">
             <Image
-              src="/logo-olho-2.png"
+              src="/logo-redondo.png"
               width={140}
               height={140}
               alt="God eye logo"
@@ -23,8 +43,8 @@ export default function Home() {
               Olho de deus <span className="text-sm text-gray-300">2.0.0</span>
             </h1>
             <p className="w-96 text-center text-white">
-              Busque pessoas e animais desaparecidos nas enchentes do Rio Grande
-              do Sul logo abaixo
+              Busque ou registre pessoas desaparecidos nas enchentes do Rio
+              Grande do Sul
             </p>
           </div>
 
@@ -32,14 +52,14 @@ export default function Home() {
             <input
               className="p-4 rounded w-1/2 shadow-lg"
               type="text"
-              placeholder="Pesquisar..."
+              placeholder="Digite o nome da pessoa..."
             />
           </div>
 
           <div className="flex justify-center items-center mt-4 text-white">
             <button
               onClick={() => alert("Atualizar componente missings")}
-              className="bg-orange-500 text-white p-1 rounded font-bold"
+              className="bg-orange-500 text-white p-2 rounded font-bold"
             >
               Pesquisar
             </button>
@@ -49,7 +69,13 @@ export default function Home() {
       <main className="flex flex-col justify-center items-center p-24">
         <div className="container mx-auto text-center">
           <section>
-            <Missings />
+            {!currentMissingList && (
+              <h1 className="text-center text-white">Carregando...</h1>
+            )}
+
+            {currentMissingList && (
+              <Missings currentList={currentMissingList} />
+            )}
           </section>
         </div>
       </main>

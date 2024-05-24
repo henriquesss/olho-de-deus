@@ -1,5 +1,5 @@
 export type IMissing = {
-  missingType: string;
+  missingType?: string;
   recorderName: string;
   recorderNumber: string;
   missingName: string;
@@ -8,4 +8,5 @@ export type IMissing = {
   situation: string;
   status: string;
   observation?: string;
+  createdAt?: string;
 };

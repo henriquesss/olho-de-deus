@@ -1,66 +1,66 @@
 import { missingRepository } from "../repository/missing";
 
-// async function get(req: Request) {
-//   // https://developer.mozilla.org/en-US/docs/Web/API/URL/searchParams
-//   const { searchParams } = new URL(req.url);
-//   const query = {
-//     page: searchParams.get("page"),
-//     limit: searchParams.get("limit"),
-//   };
-//   const page = Number(query.page);
-//   const limit = Number(query.limit);
+async function get(req: Request) {
+  const { searchParams } = new URL(req.url);
 
-//   if (query.page && isNaN(page)) {
-//     return new Response(
-//       JSON.stringify({
-//         error: {
-//           message: "`page` precisa ser um number",
-//         },
-//       }),
-//       {
-//         status: 400,
-//       },
-//     );
-//   }
-//   if (query.limit && isNaN(limit)) {
-//     return new Response(
-//       JSON.stringify({
-//         error: {
-//           message: "`limit` precisa ser um number",
-//         },
-//       }),
-//       {
-//         status: 400,
-//       },
-//     );
-//   }
+  const query = {
+    page: searchParams.get("page"),
+    limit: searchParams.get("limit"),
+  };
 
-//   try {
-//     const output = await missingRepository.get({ page, limit });
+  const page = Number(query.page);
+  const limit = Number(query.limit);
 
-//     return new Response(
-//       JSON.stringify({
-//         total: output.total,
-//         pages: output.pages,
-//         missings: output.missings,
-//       }),
-//       {
-//         status: 200,
-//       },
-//     );
-//   } catch (error) {
-//     return new Response(
-//       JSON.stringify({
-//         error: {
-//           message: "Falha ao chamar desaparecidos",
-//         },
-//       }),
-//       {
-//         status: 400,
-//       },
-//     );
-//   }
-// }
+  if (query.page && isNaN(page)) {
+    return new Response(
+      JSON.stringify({
+        error: {
+          message: "`page` precisa ser um number",
+        },
+      }),
+      {
+        status: 400,
+      },
+    );
+  }
+  if (query.limit && isNaN(limit)) {
+    return new Response(
+      JSON.stringify({
+        error: {
+          message: "`limit` precisa ser um number",
+        },
+      }),
+      {
+        status: 400,
+      },
+    );
+  }
+
+  try {
+    const output = await missingRepository.get({ page, limit });
+    return new Response(
+      JSON.stringify({
+        total: output.total,
+        pages: output.pages,
+        missings: output.missings,
+      }),
+      {
+        status: 200,
+      },
+    );
+  } catch (error) {
+    return new Response(
+      JSON.stringify({
+        error: {
+          message: "Falha ao listar desaparecidos",
+        },
+      }),
+      {
+        status: 400,
+      },
+    );
+  }
+}
 
 async function create(req: Request) {
   // Fail Fast Validation
@@ -109,6 +109,6 @@ async function create(req: Request) {
 }
 
 export const missingController = {
-  // get,
+  get,
   create,
 };

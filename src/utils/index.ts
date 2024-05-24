@@ -39,3 +39,16 @@ export function formatPhoneNumber(
     .replace(/(\d{5})(\d)/, "$1-$2");
   (event.target as HTMLInputElement).value = formattedValue;
 }
+
+export function formatDate(dateString: string): string {
+  const date = new Date(dateString);
+
+  const day = date.getDate();
+  const month = date.getMonth() + 1; // Months are zero-indexed in JavaScript
+  const year = date.getFullYear();
+
+  const dayString = day < 10 ? `0${day}` : `${day}`;
+  const monthString = month < 10 ? `0${month}` : `${month}`;
+
+  return `${dayString}/${monthString}/${year}`;
+}

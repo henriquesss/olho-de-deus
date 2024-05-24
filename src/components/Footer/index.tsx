@@ -20,6 +20,9 @@ export const Footer = () => {
           <Link className="underline" href="/status">
             status
           </Link>
+          <Link className="underline" href="/api-docs">
+            api
+          </Link>
         </div>
         <p className="text-sm mt-6">
           organizado por{" "}

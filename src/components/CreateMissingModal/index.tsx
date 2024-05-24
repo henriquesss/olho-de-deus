@@ -104,7 +104,12 @@ export const CreateMissingModal = ({
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
-        style={{ color: "#111" }}
+        style={{
+          color: "#111",
+          height: "90%",
+          overflow: "auto",
+          scrollBehavior: "smooth",
+        }}
       >
         <ModalContent>
           {(onClose) => (
