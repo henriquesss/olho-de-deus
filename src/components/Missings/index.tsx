@@ -1,58 +1,41 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import { MissingCard } from "../MissingCard";
-// import { IEstimate } from "../../interfaces/Estimate";
+import { IMissing } from "../../types/missing";
 
-// interface EstimatesComponentParams {
-//   limitParam?: number;
-// }
+interface MissingsComponentParams {
+  currentList: IMissing[];
+}
 
-export const Missings = () => {
-  useEffect(() => {
-    const getEstimatives = async () => {
-      try {
-        // Fetch no GET aqui futuramente
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    getEstimatives();
-  }, []);
-
+export const Missings = ({ currentList }: MissingsComponentParams) => {
   return (
-    <div className="container mx-auto mb-10">
-      <div className="flex flex-wrap justify-around">
-        <>
-          <div className="md:w-80 w-full mb-4" key={1}>
-            <MissingCard
-              fullName="Fulano de tal"
-              contact="(51) 9 9704-1726"
-              local="Abrigo xyz"
-              observations="Precisa de resgate rápido"
-            />
+    <>
+      {currentList.length > 0 && (
+        <div className="container mx-auto mb-10">
+          <div className="flex flex-wrap justify-around">
+            <>
+              {currentList.map((missing: IMissing) => (
+                <div className="md:w-80 w-full mb-4" key={1}>
+                  <MissingCard
+                    fullName={missing.missingName}
+                    contact={missing.recorderNumber}
+                    local={missing.missingLastLocal}
+                    situation={missing.situation}
+                    observation={missing.observation || ""}
+                    moreInfoData={{
+                      observation: missing.observation || "",
+                      recorderName: missing.recorderName,
+                      recorderNumber: missing.recorderNumber,
+                      createdAt: missing.createdAt || "",
+                    }}
+                  />
+                </div>
+              ))}
+            </>
           </div>
-
-          <div className="md:w-80 w-full mb-4" key={1}>
-            <MissingCard
-              fullName="Fulano de tal"
-              contact="(51) 9 9704-1726"
-              local="Abrigo xyz"
-              observations="Precisa de resgate rápido"
-            />
-          </div>
-
-          <div className="md:w-80 w-full mb-4" key={1}>
-            <MissingCard
-              fullName="Fulano de tal"
-              contact="(51) 9 9704-1726"
-              local="Abrigo xyz"
-              observations="Precisa de resgate rápido"
-            />
-          </div>
-        </>
-      </div>
-    </div>
+        </div>
+      )}
+    </>
   );
 };

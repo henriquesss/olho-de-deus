@@ -2,16 +2,16 @@ import MissingModel from "@server/model/missing";
 import { Missing } from "@server/schema/missing";
 import dbConnect from "@server/infra/db/mongo";
 
-// interface IMissingRepositoryGetParams {
-//   page?: number;
-//   limit?: number;
-// }
+interface IMissingRepositoryGetParams {
+  page?: number;
+  limit?: number;
+}
 
-// interface IMissingRepositoryGetOutput {
-//   missings: Missing[];
-//   total: number;
-//   pages: number;
-// }
+interface IMissingRepositoryGetOutput {
+  missings: Missing[];
+  total: number;
+  pages: number;
+}
 
 interface INewMissingData {
   missingType: string;
@@ -25,75 +25,43 @@ interface INewMissingData {
   observation?: string;
 }
 
-// async function get({
-//   page,
-//   limit,
-// }: IMissingRepositoryGetParams = {}): Promise<IMissingRepositoryGetOutput> {
-//   const { searchParams } = new URL(req.url);
-//   const query = {
-//     page: searchParams.get("page"),
-//     limit: searchParams.get("limit"),
-//   };
+async function get({
+  page,
+  limit,
+}: IMissingRepositoryGetParams = {}): Promise<IMissingRepositoryGetOutput> {
+  const currentPage = page || 1;
+  const currentLimit = limit || 10;
 
-//   if (query.page && isNaN(page)) {
-//     return new Response(
-//       JSON.stringify({
-//         error: {
-//           message: "`page` must be a number",
-//         },
-//       }),
-//       {
-//         status: 400,
-//       },
-//     );
-//   }
-//   if (query.limit && isNaN(limit)) {
-//     return new Response(
-//       JSON.stringify({
-//         error: {
-//           message: "`limit` must be a number",
-//         },
-//       }),
-//       {
-//         status: 400,
-//       },
-//     );
-//   }
+  const startIndex = (currentPage - 1) * currentLimit;
+  // const endIndex = currentPage * currentLimit - 1;
 
-//   try {
-//     const missings = await MissingModel.find({})
-//       .skip((page - 1) * limit)
-//       .limit(limit);
+  try {
+    await dbConnect();
 
-//     // Count total number of missings
-//     const total = await MissingModel.countDocuments();
+    const [missings, total] = await Promise.all([
+      MissingModel.find()
+        .sort({ date: -1 })
+        .skip(startIndex)
+        .limit(currentLimit)
+        .exec(),
+      MissingModel.countDocuments().exec(),
+    ]);
 
-//     // Calculate total number of pages
-//     const pages = Math.ceil(total / limit);
+    if (!missings) {
+      throw new Error("Falha ao buscar desaparecidos vindos do banco de dados");
+    }
 
-//     return new Response(
-//       JSON.stringify({
-//         total: total,
-//         pages: pages,
-//         missings: missings,
-//       }),
-//       {
-//         status: 200,
-//       },
-//     );
-//   } catch (error) {
-//     return new Response(
-//       JSON.stringify({
-//         error: {
-//           message: "Failed to fetch todos",
-//         },
-//       }),
-//       {
-//         status: 400,
-//       },
-//     );
-//   }
-// }
+    const totalPages = Math.ceil(total / currentLimit);
+
+    return {
+      missings,
+      total,
+      pages: totalPages,
+    };
+  } catch (error) {
+    throw new Error("Falha ao buscar desaparecidos");
+  }
+}
 
 async function create(newMissingData: INewMissingData): Promise<Missing> {
   try {
@@ -115,7 +83,7 @@ async function getMissingById(id: string): Promise<Missing> {
 }
 
 export const missingRepository = {
-  //   get,
+  get,
   create,
   getMissingById,
 };
