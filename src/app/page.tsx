@@ -10,21 +10,43 @@ import { IMissing } from "../types/missing";
 
 export default function Home() {
   const [currentMissingList, setCurrentMissingList] = useState<IMissing[]>();
-  // const [totalPages, setTotalPages] = useState<number>(0);
+  const [pages, setPages] = useState<number[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   // const [currentPage, setCurrentPage] = useState<number>(1);
   // const [moreInfoModalOpen, setMoreInfoModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    getMissings(1, 10)
+    loadData(1);
+  }, []);
+
+  const loadData = (page: number) => {
+    getMissings(page, 10)
       .then((response) => {
+        const pagesList = mountPageNavigation(response.pages);
         setCurrentMissingList(response.missings);
-        // setTotalPages(response.pages);
+        setPages(pagesList);
+        setCurrentPage(page);
       })
       .catch((error) => {
         // eslint-disable-next-line no-console
         console.log(error);
       });
-  }, []);
+  };
+
+  const mountPageNavigation = (totalPages: number): number[] => {
+    const navigationList = [];
+
+    for (let index = 0; index < totalPages; index++) {
+      navigationList.push(index + 1);
+    }
+
+    return navigationList;
+  };
+
+  const handleNavigation = async (page: number) => {
+    loadData(page);
+    window.scrollTo(0, 150);
+  };
 
   return (
     <>
@@ -40,7 +62,7 @@ export default function Home() {
               className="rounded-2xl mb-4"
             />
             <h1 className="text-white text-2xl font-bold">
-              Olho de deus <span className="text-sm text-gray-300">2.0.0</span>
+              Olho de deus <span className="text-sm text-gray-300">2.1.0</span>
             </h1>
             <p className="w-96 text-center text-white">
               Busque ou registre pessoas desaparecidos nas enchentes do Rio
@@ -50,7 +72,7 @@ export default function Home() {
 
           <div className="flex justify-center items-center mt-6">
             <input
-              className="p-4 rounded w-1/2 shadow-lg"
+              className="p-4 rounded w-1/2 shadow-lg text-black"
               type="text"
               placeholder="Digite o nome da pessoa..."
             />
@@ -77,6 +99,20 @@ export default function Home() {
               <Missings currentList={currentMissingList} />
             )}
           </section>
+        </div>
+
+        <div>
+          {pages.map((page) => (
+            <button
+              onClick={() => handleNavigation(page)}
+              className={`mr-2 underline ${
+                currentPage == page ? "text-orange-500" : "text-white"
+              }`}
+              key={page}
+            >
+              {page}
+            </button>
+          ))}
         </div>
       </main>
     </>
