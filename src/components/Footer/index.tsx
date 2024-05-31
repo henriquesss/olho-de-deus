@@ -17,9 +17,9 @@ export const Footer = () => {
           >
             github
           </a>
-          <Link className="underline" href="/status">
+          {/* <Link className="underline" href="/status">
             status
-          </Link>
+          </Link> */}
           <Link className="underline" href="/api-docs">
             api
           </Link>

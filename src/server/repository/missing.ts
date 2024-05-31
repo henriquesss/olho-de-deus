@@ -5,6 +5,7 @@ import dbConnect from "@server/infra/db/mongo";
 interface IMissingRepositoryGetParams {
   page?: number;
   limit?: number;
+  searchTerm?: string;
 }
 
 interface IMissingRepositoryGetOutput {
@@ -28,6 +29,7 @@ interface INewMissingData {
 async function get({
   page,
   limit,
+  searchTerm,
 }: IMissingRepositoryGetParams = {}): Promise<IMissingRepositoryGetOutput> {
   const currentPage = page || 1;
   const currentLimit = limit || 10;
@@ -38,18 +40,35 @@ async function get({
   try {
     await dbConnect();
 
-    const [missings, total] = await Promise.all([
-      MissingModel.find()
+    let findQuery;
+
+    // TO DO: Melhorar essa validação (undefined em string pois vem do params)
+    if (searchTerm !== "undefined") {
+      findQuery = MissingModel.find({
+        $text: { $search: searchTerm as string, $caseSensitive: false },
+      })
         .sort({ date: -1 })
         .skip(startIndex)
         .limit(currentLimit)
-        .exec(),
+        .exec();
+    } else {
+      findQuery = MissingModel.find()
+        .sort({ date: -1 })
+        .skip(startIndex)
+        .limit(currentLimit)
+        .exec();
+    }
+
+    const [missings, totalQuery] = await Promise.all([
+      findQuery,
       MissingModel.countDocuments().exec(),
     ]);
 
     if (!missings) {
       throw new Error("Falha ao buscar desaparecidos vindos do banco de dados");
     }
+
+    const total = searchTerm !== "undefined" ? missings.length : totalQuery;
 
     const totalPages = Math.ceil(total / currentLimit);
 
@@ -69,7 +88,7 @@ async function create(newMissingData: INewMissingData): Promise<Missing> {
     const missing = await MissingModel.create(newMissingData);
     return missing;
   } catch (error) {
-    throw new Error("Failed to create Missing");
+    throw new Error("Erro ao registrar desaparecido");
   }
 }
 
@@ -78,7 +97,7 @@ async function getMissingById(id: string): Promise<Missing> {
     const missing = await MissingModel.findById(id);
     return missing;
   } catch (error) {
-    throw new Error("Failed to get missing by id");
+    throw new Error("Falha ao buscar desaparecido por id");
   }
 }
 

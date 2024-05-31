@@ -44,6 +44,8 @@ const MissingSchema: Schema = new Schema(
   },
 );
 
+MissingSchema.index({ missingName: "text" });
+
 const MissingModel = models.missing || model("missing", MissingSchema);
 
 export default MissingModel;
