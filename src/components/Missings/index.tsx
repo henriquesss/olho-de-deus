@@ -15,9 +15,10 @@ export const Missings = ({ currentList }: MissingsComponentParams) => {
         <div className="container mx-auto mb-10">
           <div className="flex flex-wrap justify-around">
             <>
-              {currentList.map((missing: IMissing) => (
-                <div className="md:w-80 w-full mb-4" key={1}>
+              {currentList.map((missing: IMissing, index) => (
+                <div className="md:w-80 w-full mb-4" key={index}>
                   <MissingCard
+                    key={index}
                     fullName={missing.missingName}
                     contact={missing.recorderNumber}
                     local={missing.missingLastLocal}

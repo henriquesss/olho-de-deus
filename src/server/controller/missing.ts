@@ -6,10 +6,12 @@ async function get(req: Request) {
   const query = {
     page: searchParams.get("page"),
     limit: searchParams.get("limit"),
+    search: searchParams.get("search"),
   };
 
   const page = Number(query.page);
   const limit = Number(query.limit);
+  const searchTerm = query.search || "";
 
   if (query.page && isNaN(page)) {
     return new Response(
@@ -37,7 +39,7 @@ async function get(req: Request) {
   }
 
   try {
-    const output = await missingRepository.get({ page, limit });
+    const output = await missingRepository.get({ page, limit, searchTerm });
     return new Response(
       JSON.stringify({
         total: output.total,

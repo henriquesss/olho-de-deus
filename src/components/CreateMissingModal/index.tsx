@@ -13,6 +13,7 @@ import { formatPhoneNumber } from "../../utils";
 import { createMissing } from "@ui/repository/missing";
 import { IMissing } from "../../types/missing";
 import { toast } from "react-toastify";
+import { cities } from "../../assets/rs-cities";
 
 interface ICreateEstimateModalProps {
   isOpen: boolean;
@@ -32,6 +33,7 @@ export const CreateMissingModal = ({
   isOpen,
   onOpenChange,
 }: ICreateEstimateModalProps) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [missingType, setMissingType] = useState("person");
   const [recorderName, setRecorderName] = useState("");
   const [recorderNumber, setRecorderNumber] = useState("");
@@ -120,45 +122,6 @@ export const CreateMissingModal = ({
 
               <>
                 <ModalBody>
-                  <p>Preencha os dados da pessoa ou animal desaparecido</p>
-                  <div className="flex justify-between items-center">
-                    <div className="flex items-center ps-4 border border-gray-200 rounded dark:border-gray-700 w-full">
-                      <input
-                        onClick={() => setMissingType("person")}
-                        checked={missingType == "person"}
-                        id="bordered-radio-1"
-                        type="radio"
-                        value="pessoa"
-                        name="bordered-radio"
-                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                      />
-                      <label
-                        htmlFor="bordered-radio-1"
-                        className="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                      >
-                        Pessoa
-                      </label>
-                    </div>
-
-                    <div className="flex items-center ps-4 border border-gray-200 rounded dark:border-gray-700 w-full">
-                      <input
-                        onClick={() => setMissingType("animal")}
-                        defaultChecked={missingType == "animal"}
-                        id="bordered-radio-2"
-                        type="radio"
-                        value="animal"
-                        name="bordered-radio"
-                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                      />
-                      <label
-                        htmlFor="bordered-radio-2"
-                        className="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                      >
-                        Animal
-                      </label>
-                    </div>
-                  </div>
-
                   <h1>Dados da pessoa cadastrante</h1>
                   {errors.recorderName && (
                     <p className="text-red-500">{errors.recorderName}</p>
@@ -207,14 +170,21 @@ export const CreateMissingModal = ({
                   {errors.missingLastLocal && (
                     <p className="text-red-500">{errors.missingLastLocal}</p>
                   )}
-                  <input
-                    className="border-1 p-2 rounded"
-                    type="text"
-                    placeholder="Visto por último em (bairro ou cidade)"
-                    onChange={(event) =>
-                      setMissingLastLocal(event.target.value)
-                    }
-                  />
+                  <select
+                    id="status-select"
+                    value={missingLastLocal}
+                    onChange={(event) => {
+                      setMissingLastLocal(event?.target.value);
+                    }}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  >
+                    <option value="">Selecione o Local</option>
+                    {cities.map((city, index) => (
+                      <option key={index} value={city}>
+                        {city}
+                      </option>
+                    ))}
+                  </select>
 
                   {errors.situation && (
                     <p className="text-red-500">{errors.situation}</p>

@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-// import Image from "next/image";
+import Image from "next/image";
 import { CreateMissingModal } from "../CreateMissingModal";
 import { useDisclosure } from "@nextui-org/react";
 
@@ -14,16 +14,15 @@ export const Header = () => {
       <CreateMissingModal isOpen={isOpen} onOpenChange={onOpenChange} />
       <div className="flex justify-around items-center">
         <div className="text-white font-bold">
-          {/* <Link href="/">
+          <Link href="/">
             <Image
-              src="/logo-olho-2.png"
-              width={50}
-              height={50}
+              src="/logo-redondo.png"
+              width={40}
+              height={40}
               alt="God eye logo"
               className="rounded-2xl"
             />
-          </Link> */}
-          <Link href="/">Olho de deus</Link>
+          </Link>
         </div>
 
         <div className="flex flex-row items-center">
